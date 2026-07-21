@@ -49,7 +49,7 @@ let dev,chr,pt,kt,lc,wl;
 const SVC='0000ffe0-0000-1000-8000-00805f9b34fb',CHR='0000ffe1-0000-1000-8000-00805f9b34fb';
 const l=m=>{const e=document.getElementById('lg'),t=new Date().toLocaleTimeString();e.innerHTML+=t+' '+m+'\\n';e.scrollTop=e.scrollHeight};
 const ss=(t,c)=>{const e=document.getElementById('st');e.textContent=t;e.style.borderColor=c};
-async function go(){try{l('扫描中...');dev=await navigator.bluetooth.requestDevice({filters:[{namePrefix:'SL'}],optionalServices:[SVC]});
+async function go(){try{l('扫描中...');dev=await navigator.bluetooth.requestDevice({filters:[{namePrefix:'SX'}],optionalServices:[SVC]});
 l('连接 '+dev.name+'...');const s=await dev.gatt.connect(),svc=await s.getPrimaryService(SVC);chr=await svc.getCharacteristic(CHR);
 l('✅ 已连接');ss('✅ '+dev.name,'#0f0');try{wl=await navigator.wakeLock.request('screen')}catch(e){}
 dev.addEventListener('gattserverdisconnected',()=>{l('断开');ss('已断开','#f00');sp()});sp();poll()}catch(e){l('❌ '+e.message)}}
